@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@theme {
+  --color-broadcast-bg: #0a0e14;
+  --color-broadcast-panel: #141920;
+  --color-broadcast-panel-raised: #1c2128;
+  --color-broadcast-line: #2a313c;
+  --color-broadcast-orange: #ff5c00;
+  --color-broadcast-orange-dim: #b34200;
+  --color-broadcast-green: #00d9a3;
+  --color-broadcast-red: #ff3b5c;
+  --color-broadcast-text: #e8eaed;
+  --color-broadcast-muted: #6b7280;
+  --color-broadcast-muted-2: #8b94a3;
+
+  --font-display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue Condensed", sans-serif;
+  --font-body: "Inter", -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Consolas, monospace;
+}
+
+html {
+  background-color: var(--color-broadcast-bg);
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-broadcast-bg);
+  color: var(--color-broadcast-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Subtle scanline / broadcast texture on the backdrop */
+.broadcast-texture {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.012) 0px,
+      rgba(255, 255, 255, 0.012) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+}
+
+.diagonal-clip {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 12px 100%);
+}
+
+.diagonal-clip-r {
+  clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+}
+
+@keyframes reel-spin {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(var(--final-offset, -100%)); }
+}
+
+.reel-track {
+  animation-name: reel-spin;
+  animation-timing-function: cubic-bezier(0.12, 0.8, 0.2, 1);
+  animation-fill-mode: forwards;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
