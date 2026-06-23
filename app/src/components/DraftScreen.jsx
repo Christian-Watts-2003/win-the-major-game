@@ -3,6 +3,7 @@ import { MAX_REROLLS_TEAM, MAX_REROLLS_MAJOR } from "../config";
 import headshotMap from "../data/headshots.json";
 import { ATTRIBUTE_DEFS } from "../lib/attributeIcons";
 import { CS2_IGL_MAJORS_MAP } from "../lib/simulation";
+import { statTier, tierTextClass, tierBgClass } from "../lib/statTiers";
 
 export default function DraftScreen({ teamMajor, pickNumber, totalPicks, onPick, usedPlayerIds, statsRevealed, teamRerollsUsed, majorRerollsUsed, onRerollTeam, onRerollMajor, gameMode = "classic" }) {
   const usedGamertags = new Set(usedPlayerIds.map((id) => id.split("_")[0]));
@@ -204,12 +205,12 @@ function Hltv3PlayerCard({ player, headshot, statsRevealed, onPick, dragRef, dra
         <div className="flex flex-1 flex-col justify-center border-l border-broadcast-line px-4 py-4">
           {statsRevealed ? (
             <div className="grid grid-cols-3 gap-x-5 gap-y-3">
-              <Stat3 label="RTG 3.0" value={player.rating3 && player.rating3 !== 0 ? player.rating3.toFixed(2) : "—"} highlight />
-              <Stat3 label="KAST"    value={player.kast && player.kast !== 0 ? `${player.kast.toFixed(1)}%` : "—"} />
-              <Stat3 label="KPR"     value={player.kpr && player.kpr !== 0 ? player.kpr.toFixed(2) : "—"} />
-              <Stat3 label="DPR"     value={player.dpr && player.dpr !== 0 ? player.dpr.toFixed(2) : "—"} />
-              <Stat3 label="MK %"    value={player.multiKill && player.multiKill !== 0 ? `${player.multiKill.toFixed(1)}%` : "—"} />
-              <Stat3 label="RSW %"   value={player.roundSwingPct && player.roundSwingPct !== 0 ? `${player.roundSwingPct.toFixed(1)}%` : "—"} />
+              <Stat3 label="RTG 3.0" value={player.rating3 && player.rating3 !== 0 ? player.rating3.toFixed(2) : "—"} tier={statTier("rating3", player.rating3)} />
+              <Stat3 label="KAST"    value={player.kast && player.kast !== 0 ? `${player.kast.toFixed(1)}%` : "—"} tier={statTier("kast", player.kast)} />
+              <Stat3 label="KPR"     value={player.kpr && player.kpr !== 0 ? player.kpr.toFixed(2) : "—"} tier={statTier("kpr", player.kpr)} />
+              <Stat3 label="DPR"     value={player.dpr && player.dpr !== 0 ? player.dpr.toFixed(2) : "—"} tier={statTier("dpr", player.dpr)} />
+              <Stat3 label="MK %"    value={player.multiKill && player.multiKill !== 0 ? `${player.multiKill.toFixed(1)}%` : "—"} tier={statTier("multiKill", player.multiKill)} />
+              <Stat3 label="RSW %"   value={player.roundSwingPct && player.roundSwingPct !== 0 ? `${player.roundSwingPct.toFixed(1)}%` : "—"} tier={statTier("roundSwingPct", player.roundSwingPct)} />
             </div>
           ) : (
             <div className="font-mono text-xs uppercase tracking-widest text-broadcast-muted">Stats hidden</div>
@@ -222,8 +223,9 @@ function Hltv3PlayerCard({ player, headshot, statsRevealed, onPick, dragRef, dra
             const score = player[key] ?? null;
             const pct = score !== null ? Math.min(100, Math.max(0, score)) : 0;
             const barColor =
-              pct >= 70 ? "bg-broadcast-green" :
-              pct >= 40 ? "bg-broadcast-orange" :
+              pct >= 80 ? "bg-blue-400" :
+              pct >= 60 ? "bg-broadcast-green" :
+              pct >= 35 ? "bg-broadcast-orange" :
               "bg-broadcast-red";
 
             return (
@@ -251,10 +253,10 @@ function Hltv3PlayerCard({ player, headshot, statsRevealed, onPick, dragRef, dra
   );
 }
 
-function Stat3({ label, value, highlight }) {
+function Stat3({ label, value, tier }) {
   return (
     <div>
-      <div className={`font-mono text-sm font-semibold ${highlight ? "text-broadcast-green" : "text-broadcast-text"}`}>
+      <div className={`font-mono text-sm font-semibold ${tierTextClass(tier)}`}>
         {value}
       </div>
       <div className="font-mono text-[9px] uppercase tracking-widest text-broadcast-muted">{label}</div>
