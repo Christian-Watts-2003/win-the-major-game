@@ -290,7 +290,7 @@ function RoleLegend() {
           <div key={role}>
             <div className="font-mono text-[10px] uppercase tracking-widest text-broadcast-green">{role}</div>
             <p className="mt-0.5 text-[11px] leading-snug text-broadcast-muted-2">{desc}</p>
-            <div className="mt-1.5 flex gap-2">
+            <div className="mt-1.5 flex flex-col gap-1">
               {attrs.map((attrKey) => {
                 const def = ATTRIBUTE_DEFS.find((d) => d.key === attrKey);
                 if (!def) return null;
