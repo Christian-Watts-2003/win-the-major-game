@@ -274,10 +274,10 @@ function StatBlock({ label, value }) {
 }
 
 const ROLE_LEGEND = [
-  { role: "AWPer",   desc: "Primary sniper. Controls long angles and creates picks from distance.",              attrs: ["opening", "sniping", "trading"] },
+  { role: "AWPer",   desc: "Primary sniper. Controls long angles and creates picks from distance.",              attrs: ["sniping"] },
   { role: "Entry",   desc: "First through the door. Opens sites and trades aggressively.",                       attrs: ["entrying", "opening", "trading"] },
   { role: "Support", desc: "Enables teammates with utility and trades fallen entry fraggers.",                   attrs: ["clutching", "trading", "utility"] },
-  { role: "Star ★",  desc: "Versatile top-fragger. Weighted 5% higher than other roles.",                       attrs: ["clutching", "opening", "trading"] },
+  { role: "Star ★",  desc: "Versatile top-fragger. Weighted 5% higher than other roles.",                       attrs: [] },
   { role: "Lurker",  desc: "Creates off-angles and lone-wolf pressure. Opens duels from unexpected positions.",  attrs: ["clutching", "opening", "trading"] },
 ];
 
