@@ -290,6 +290,9 @@ export function computeStrengthBreakdownHltv3(lineup, iglPlayerId = null) {
   return {
     finalStrength, teamAvgRating, teamAvgKd, teamAvgAdr, teamAvgImpact,
     teamAvgKast, teamAvgMultiKill, teamAvgRsw,
+    avgEffectiveScore,
+    chemistryFactor,
+    chemistryRaw,
     iglFactor, iglCs2Majors, awpFactor, starBoost: HLTV3_STAR_BOOST,
   };
 }
