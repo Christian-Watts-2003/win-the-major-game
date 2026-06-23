@@ -32,8 +32,8 @@ export const HLTV3_STAR_BOOST = 1.05;
 // or reroll the major (keep org, new major). Each type has its own budget.
 // Set either to 0 to disable that reroll type entirely.
 
-export const MAX_REROLLS_TEAM  = 1;   // "Reroll team"  button uses this pool
-export const MAX_REROLLS_MAJOR = 1;   // "Reroll major" button uses this pool
+export const MAX_REROLLS_TEAM  = 2;   // "Reroll team"  button uses this pool
+export const MAX_REROLLS_MAJOR = 2;   // "Reroll major" button uses this pool
 
 
 // ── Spinner animation ─────────────────────────────────────────────────────────
