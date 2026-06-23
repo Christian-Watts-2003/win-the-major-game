@@ -1,4 +1,5 @@
 import { getRoleById } from "../lib/draftData";
+import { statTier, tierTextClass } from "../lib/statTiers";
 
 const HLTV3_SLOT_LABELS = {
   awp:     "AWPer",
@@ -37,10 +38,13 @@ export default function StrengthBreakdown({ lineup, breakdown, statsRevealed, ga
         </div>
         {isHltv3 ? (
           <>
-            <div className="grid gap-3 sm:grid-cols-3">
-              <StatTile label="Team avg RTG 3.0" value={breakdown.teamAvgRating.toFixed(2)} />
-              <StatTile label="Team avg KPR" value={breakdown.teamAvgKd.toFixed(2)} />
-              <StatTile label="Team avg DPR" value={breakdown.teamAvgAdr.toFixed(2)} />
+            <div className="grid gap-3 sm:grid-cols-3 xl:grid-cols-6">
+              <StatTile label="Team avg RTG 3.0" value={breakdown.teamAvgRating.toFixed(2)} statKey="rating3" raw={breakdown.teamAvgRating} />
+              <StatTile label="Team avg KAST"    value={breakdown.teamAvgKast != null ? `${breakdown.teamAvgKast.toFixed(1)}%` : "—"} statKey="kast" raw={breakdown.teamAvgKast} />
+              <StatTile label="Team avg KPR"     value={breakdown.teamAvgKd.toFixed(2)} statKey="kpr" raw={breakdown.teamAvgKd} />
+              <StatTile label="Team avg DPR"     value={breakdown.teamAvgAdr.toFixed(2)} statKey="dpr" raw={breakdown.teamAvgAdr} />
+              <StatTile label="Team avg MK %"    value={breakdown.teamAvgMultiKill != null ? `${breakdown.teamAvgMultiKill.toFixed(1)}%` : "—"} statKey="multiKill" raw={breakdown.teamAvgMultiKill} />
+              <StatTile label="Team avg RSW %"   value={breakdown.teamAvgRsw != null ? `${breakdown.teamAvgRsw.toFixed(1)}%` : "—"} statKey="roundSwingPct" raw={breakdown.teamAvgRsw} />
             </div>
             <div className="mt-4 grid gap-3 sm:grid-cols-4">
               <MultiplierTile
@@ -137,10 +141,12 @@ function LineupCard({ slot, statsRevealed, isHltv3 }) {
         <div className="mt-2 grid grid-cols-2 gap-1.5">
           {isHltv3 ? (
             <>
-              <MiniStat label="RTG 3.0" value={slot.player.rating3} />
-              <MiniStat label="KAST" value={slot.player.kast} suffix="%" />
-              <MiniStat label="KPR" value={slot.player.kpr} />
-              <MiniStat label="DPR" value={slot.player.dpr} />
+              <MiniStat label="RTG 3.0" value={slot.player.rating3} statKey="rating3" />
+              <MiniStat label="KAST"    value={slot.player.kast}    statKey="kast"    suffix="%" />
+              <MiniStat label="KPR"     value={slot.player.kpr}     statKey="kpr" />
+              <MiniStat label="DPR"     value={slot.player.dpr}     statKey="dpr" />
+              <MiniStat label="MK %"    value={slot.player.multiKill}    statKey="multiKill"    suffix="%" />
+              <MiniStat label="RSW %"   value={slot.player.roundSwingPct} statKey="roundSwingPct" suffix="%" />
             </>
           ) : (
             <>
@@ -156,20 +162,22 @@ function LineupCard({ slot, statsRevealed, isHltv3 }) {
   );
 }
 
-function StatTile({ label, value }) {
+function StatTile({ label, value, statKey, raw }) {
+  const tier = statKey ? statTier(statKey, raw) : null;
   return (
     <div className="rounded-sm border border-broadcast-line bg-broadcast-panel-raised px-4 py-3">
-      <div className="font-mono text-base font-semibold text-broadcast-text">{value}</div>
+      <div className={`font-mono text-base font-semibold ${tierTextClass(tier)}`}>{value}</div>
       <div className="font-mono text-[10px] uppercase tracking-widest text-broadcast-muted">{label}</div>
     </div>
   );
 }
 
-function MiniStat({ label, value, decimals = 2, suffix = "" }) {
+function MiniStat({ label, value, decimals = 2, suffix = "", statKey }) {
+  const tier = statKey ? statTier(statKey, value) : null;
   return (
     <div className="rounded-sm bg-broadcast-bg px-2 py-1">
       <div className="font-mono text-[9px] uppercase tracking-widest text-broadcast-muted">{label}</div>
-      <div className="font-mono text-xs font-semibold text-broadcast-text">
+      <div className={`font-mono text-xs font-semibold ${tier ? tierTextClass(tier) : "text-broadcast-text"}`}>
         {value && value !== 0 ? `${value.toFixed(decimals)}${suffix}` : "—"}
       </div>
     </div>
