@@ -2,6 +2,7 @@ import { useDraggable, useDroppable } from "@dnd-kit/core";
 import { ROLES, TEAM_MAJORS } from "../lib/draftData";
 import { SLOT_ORDER_HLTV3 } from "../config";
 import { ATTRIBUTE_DEFS, ROLE_KEY_ATTRIBUTES } from "../lib/attributeIcons";
+import { tierBgClass } from "../lib/statTiers";
 
 const SLOT_ORDER = ["awp", "entry", "support", "lurker", "igl"];
 
@@ -172,7 +173,8 @@ function RoleSlot({ roleId, occupant, originLabel, statsRevealed, isHltv3, isIgl
               if (!def) return null;
               const score = occupant ? (occupant[attrKey] ?? null) : null;
               const pct = score !== null ? Math.max(0, Math.min(100, score)) : 0;
-              const barColor = score === null ? "bg-broadcast-muted/20" : score >= 70 ? "bg-broadcast-green" : score >= 40 ? "bg-broadcast-orange" : "bg-broadcast-red";
+              const attrTier = score === null ? null : score >= 80 ? "blue" : score >= 60 ? "green" : score >= 35 ? "yellow" : "red";
+              const barColor = score === null ? "bg-broadcast-muted/20" : tierBgClass(attrTier);
               return (
                 <div key={attrKey} className="group/rattr relative flex items-center gap-1">
                   <div className="pointer-events-none absolute bottom-full left-0 z-50 mb-1.5 whitespace-nowrap rounded-sm border border-broadcast-line bg-broadcast-bg px-2 py-0.5 font-mono text-[8px] uppercase tracking-widest text-broadcast-text opacity-0 transition-opacity group-hover/rattr:opacity-100">
