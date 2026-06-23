@@ -34,7 +34,7 @@ export function statTier(statKey, value) {
 // Tailwind text-color class for a tier.
 export function tierTextClass(tier) {
   switch (tier) {
-    case "blue":   return "text-blue-400";
+    case "blue":   return "text-teal-300";
     case "green":  return "text-broadcast-green";
     case "yellow": return "text-broadcast-orange";
     case "red":    return "text-broadcast-red";
@@ -44,7 +44,7 @@ export function tierTextClass(tier) {
 // Tailwind bg-color class for attribute bars (vertical/horizontal).
 export function tierBgClass(tier) {
   switch (tier) {
-    case "blue":   return "bg-blue-400";
+    case "blue":   return "bg-teal-300";
     case "green":  return "bg-broadcast-green";
     case "yellow": return "bg-broadcast-orange";
     case "red":    return "bg-broadcast-red";
