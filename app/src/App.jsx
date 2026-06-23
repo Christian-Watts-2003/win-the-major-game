@@ -330,8 +330,8 @@ function Footer() {
   return (
     <footer className="border-t border-broadcast-line px-4 py-8">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-2 text-center font-mono text-[11px] uppercase tracking-widest text-broadcast-muted sm:flex-row sm:justify-between">
-        <span>Win The Major — an unofficial fan project by Christian Watts</span>
-        <span>Player stats approximated from public HLTV performance data at each Major, 2014–2024</span>
+        <span>Win The Major — by Christian Watts</span>
+        <span>Unofficial fan project. Not affiliated with Valve, HLTV, PGL, or any Counter-Strike organization. Player stats are approximations based on publicly reported data. No user data is collected.</span>
       </div>
     </footer>
   );
