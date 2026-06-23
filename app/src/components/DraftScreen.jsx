@@ -223,7 +223,7 @@ function Hltv3PlayerCard({ player, headshot, statsRevealed, onPick, dragRef, dra
             const score = player[key] ?? null;
             const pct = score !== null ? Math.min(100, Math.max(0, score)) : 0;
             const barColor =
-              pct >= 80 ? "bg-blue-400" :
+              pct >= 80 ? "bg-cyan-400" :
               pct >= 60 ? "bg-broadcast-green" :
               pct >= 35 ? "bg-broadcast-orange" :
               "bg-broadcast-red";
