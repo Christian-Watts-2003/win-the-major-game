@@ -262,11 +262,14 @@ export function computeStrengthBreakdownHltv3(lineup, iglPlayerId = null) {
   }
 
   const players = lineup.map((slot) => slot.player);
-  const teamAvgRating  = average(players.map((p) => p.rating3 ?? p.rating));
-  const teamAvgKd      = average(players.map((p) => p.kpr ?? p.kd));
-  const teamAvgAdr     = average(players.map((p) => p.dpr ?? p.adr));
-  const teamAvgImpact  = average(players.map((p) => p.kast ?? p.impact));
-
+  const teamAvgRating    = average(players.map((p) => p.rating3 ?? p.rating));
+  const teamAvgKd        = average(players.map((p) => p.kpr ?? p.kd));
+  const teamAvgAdr       = average(players.map((p) => p.dpr ?? p.adr));
+  const teamAvgImpact    = average(players.map((p) => p.kast ?? p.impact));
+  const teamAvgKast      = average(players.map((p) => p.kast ?? 0));
+  const teamAvgMultiKill = average(players.map((p) => p.multiKill ?? 0));
+  const teamAvgRsw       = average(players.map((p) => p.roundSwingPct ?? 0));
+  
   const scores = lineup.map((slot) => {
     const starBoost = slot.roleId === "star" ? HLTV3_STAR_BOOST : 1.0;
     return playerScoreHltv3(slot.player) * roleEfficiency(slot.player, slot.roleId) * starBoost;
@@ -286,7 +289,7 @@ export function computeStrengthBreakdownHltv3(lineup, iglPlayerId = null) {
 
   return {
     finalStrength, teamAvgRating, teamAvgKd, teamAvgAdr, teamAvgImpact,
-    avgEffectiveScore, chemistryFactor, chemistryRaw,
+    teamAvgKast, teamAvgMultiKill, teamAvgRsw,
     iglFactor, iglCs2Majors, awpFactor, starBoost: HLTV3_STAR_BOOST,
   };
 }
