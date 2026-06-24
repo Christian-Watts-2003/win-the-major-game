@@ -43653,7 +43653,9 @@
           "id": "nilo_heroic_iem_cologne_2026",
           "name": "nilo",
           "realName": "Linus Bergman",
-          "roles": [],
+          "roles": [
+            "igl"
+          ],
           "rating": 1.11,
           "kd": 1.02,
           "adr": 78.3,
