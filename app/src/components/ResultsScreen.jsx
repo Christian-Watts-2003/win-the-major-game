@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { computeStrengthBreakdown, computeStrengthBreakdownHltv3, getOpponentPool, getOpponentPoolHltv3 } from "../lib/simulation";
 import { TEAM_MAJORS } from "../lib/draftData";
 import StrengthBreakdown from "./StrengthBreakdown";
+import RolePerformanceBreakdown from "./RolePerformanceBreakdown";
 import TournamentBracket from "./TournamentBracket";
 
 const SLOT_ORDER = ["awp", "entry", "support", "lurker", "igl"];
@@ -31,6 +32,10 @@ export default function ResultsScreen({ assignments, statsRevealed, onRestart, g
     <div className="mx-auto max-w-5xl px-4 py-10">
       <StrengthBreakdown lineup={lineup} breakdown={breakdown} statsRevealed={true} gameMode={gameMode} />
 
+      <div className="mt-6">
+        <RolePerformanceBreakdown lineup={lineup} gameMode={gameMode} iglPlayerId={iglPlayerId} />
+      </div>
+      
       <div className="mt-6 rounded-sm border border-broadcast-line bg-broadcast-panel p-6 sm:p-10">
         {!started ? (
           <div className="flex flex-col items-center gap-4 text-center">
