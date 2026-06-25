@@ -186,3 +186,7 @@ Key knobs:
 | Fonts | Barlow Condensed · Inter · JetBrains Mono |
 | Deployment | Render (static site via `render.yaml`) |
 | Backend | None — fully client-side |
+
+## Author
+
+Christian Watts — B.S. Electrical Engineering, University of Alabama
